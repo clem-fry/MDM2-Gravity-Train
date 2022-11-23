@@ -1,0 +1,36 @@
+import math
+import matplotlib.pyplot as plt
+
+
+#Assuming earth is sphere with uniform density p
+#Initial variables:
+R = 6371 #radius of earth (km)
+gx = 9.81 #gravitational constant at surface of earth (ms^-2)
+k = math.sqrt(gx/R)
+theta = 15 #(rad)
+
+def displacement(R, theta, t, k): #r
+    d = []
+    for i in t:
+        d.append(R * math.cos(theta) * math.cos(k*i))
+    return d
+
+def velocity(R, theta, t, k): #r.
+    v = []
+    for i in t:
+        v.append(-R * math.cos(theta) * k * math.sin(k*i))
+    return v
+
+def acceleration(R, theta, t, k):
+    a = []
+    for i in t:
+        a.append(-R * math.cos(theta) * k * k * math.cos(k* i))
+    return a
+
+timeValues = list(range(0, 200, 1))
+
+displacementValues = displacement(R, theta, timeValues, k)
+velocityValues = velocity(R, theta, timeValues, k)
+accelerationValues = acceleration(R, theta, timeValues, k)
+
+plt.plot(timeValues, accelerationValues)
